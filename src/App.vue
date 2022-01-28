@@ -8,6 +8,25 @@
   </div>
 </template>
 
+<script>
+function start() {
+  // eslint-disable-next-line no-undef
+  gapi.client.init({
+    apiKey: process.env.VUE_APP_YOUTUBE_API_KEY,
+    clientId:
+      "478919921389-bjklcfraja7ai0hs12ke68pu6teofgdp.apps.googleusercontent.com",
+    scope: "https://www.googleapis.com/auth/youtube",
+  });
+}
+// 1. Load the JavaScript client library.
+// eslint-disable-next-line no-undef
+gapi.load("client", start);
+// eslint-disable-next-line no-undef
+window.gapi = gapi;
+
+// window.gapi.client.load("youtube", "v3");
+</script>
+
 <style lang="scss">
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
