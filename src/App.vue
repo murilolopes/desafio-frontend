@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <div id="nav"><router-link to="/">Home</router-link> |</div>
+    <ByCodersNavBar />
     <router-view />
   </div>
 </template>
@@ -20,6 +20,15 @@ const start = () =>
     });
 
 gapi.load("client", start);
+
+import ByCodersNavBar from "@/components/ByCodersNavBar.vue";
+
+export default {
+  name: "App",
+  components: {
+    ByCodersNavBar,
+  },
+};
 </script>
 
 <style lang="scss">
