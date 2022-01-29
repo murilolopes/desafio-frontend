@@ -34,16 +34,16 @@ export default {
       type: Array,
     },
     viewCounter: {
-      type: Number,
-      default: 0,
+      type: String,
+      default: "",
     },
     likeCounter: {
-      type: Number,
-      default: 0,
+      type: String,
+      default: "",
     },
     commentCounter: {
-      type: Number,
-      default: 0,
+      type: String,
+      default: "",
     },
     thumb: {
       type: String,

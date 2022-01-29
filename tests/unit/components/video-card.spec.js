@@ -40,7 +40,7 @@ describe("VideoCard.vue", () => {
   });
 
   test("should render views counter", () => {
-    const viewCounter = 20000;
+    const viewCounter = "20000";
     const wrapper = mount(VideoCard, {
       propsData: {
         tags: [],
@@ -52,7 +52,7 @@ describe("VideoCard.vue", () => {
   });
 
   test("should render likes counter", () => {
-    const likeCounter = 5000;
+    const likeCounter = "5000";
     const wrapper = mount(VideoCard, {
       propsData: {
         tags: [],
@@ -64,7 +64,7 @@ describe("VideoCard.vue", () => {
   });
 
   test("should render comments counter", () => {
-    const commentCounter = 782;
+    const commentCounter = "782";
     const wrapper = mount(VideoCard, {
       propsData: {
         tags: [],
