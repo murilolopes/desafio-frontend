@@ -1,23 +1,14 @@
 <template>
   <div class="home">
-    <button @click="topVideos()">top videos</button>
+    <featured-videos />
   </div>
 </template>
 
 <script>
-import YoutubeVideo from "@/services/youtube-video.js";
+import FeaturedVideos from "@/components/FeaturedVideos.vue";
 
 export default {
+  components: { FeaturedVideos },
   name: "Home",
-  methods: {
-    async topVideos() {
-      try {
-        const reponse = await new YoutubeVideo.topVideos();
-        console.log("response:", reponse);
-      } catch (error) {
-        console.log(error);
-      }
-    },
-  },
 };
 </script>

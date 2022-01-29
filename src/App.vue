@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <ByCodersNavBar />
+    <by-coders-nav-bar />
     <router-view />
   </div>
 </template>
