@@ -1,7 +1,7 @@
 <template>
   <div>
     <button @click="topVideos()">top videos</button>
-    <b-container-fluid v-if="videos.length">
+    <b-container fluid v-if="videos.length">
       <h4>Feature videos</h4>
       <b-row cols="12">
         <b-col cols="8" class="bg-primary">
@@ -36,15 +36,6 @@
                 :commentCounter="videos[0].statistics.commentCount"
                 :thumb="videos[0].snippet.thumbnails.maxres.url"
               />
-              <video-card
-                :title="videos[0].snippet.title"
-                :channelName="videos[0].snippet.channelTitle"
-                :tags="videos[0].snippet.tags"
-                :viewCounter="videos[0].statistics.viewCount"
-                :likeCounter="videos[0].statistics.likeCount"
-                :commentCounter="videos[0].statistics.commentCount"
-                :thumb="videos[0].snippet.thumbnails.maxres.url"
-              />
             </b-col>
           </b-row>
         </b-col>
@@ -60,7 +51,7 @@
           />
         </b-col>
       </b-row>
-    </b-container-fluid>
+    </b-container>
   </div>
 </template>
 

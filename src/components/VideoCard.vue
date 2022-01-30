@@ -1,5 +1,11 @@
 <template>
-  <b-card :title="title" :img-src="thumb" img-alt="Image" img-top align="left">
+  <b-card
+    :title="title"
+    :img-src="thumb"
+    img-alt="Image"
+    align="left"
+    footer-bg-variant="white"
+  >
     <b-card-text>
       {{ channelName }}<br />
       <small class="text-muted">
