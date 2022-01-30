@@ -8,19 +8,19 @@
   >
     <b-card-text>
       {{ channelName }}<br />
-      <small class="text-muted">
+      <!-- <small class="text-muted">
         Tags:
         {{ formatedTags }}
-      </small>
+      </small> -->
     </b-card-text>
 
-    <template #footer>
+    <!-- <template #footer>
       <div class="d-flex justify-content-between">
         <div>Views: {{ viewCounter }}</div>
         <div>Likes: {{ likeCounter }}</div>
         <div>Comments: {{ commentCounter }}</div>
       </div>
-    </template>
+    </template> -->
   </b-card>
 </template>
 
@@ -36,21 +36,21 @@ export default {
       type: String,
       default: "",
     },
-    tags: {
-      type: Array,
-    },
-    viewCounter: {
-      type: String,
-      default: "",
-    },
-    likeCounter: {
-      type: String,
-      default: "",
-    },
-    commentCounter: {
-      type: String,
-      default: "",
-    },
+    // tags: {
+    //   type: Array,
+    // },
+    // viewCounter: {
+    //   type: String,
+    //   default: "",
+    // },
+    // likeCounter: {
+    //   type: String,
+    //   default: "",
+    // },
+    // commentCounter: {
+    //   type: String,
+    //   default: "",
+    // },
     thumb: {
       type: String,
       default: "",
@@ -58,6 +58,8 @@ export default {
   },
   computed: {
     formatedTags() {
+      if (!this.tags.length) return "";
+
       return this.tags.slice(0, 5).join(", ");
     },
   },

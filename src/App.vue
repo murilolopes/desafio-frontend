@@ -17,6 +17,7 @@ const start = () =>
     })
     .then(() => {
       gapi.client.load("youtube", "v3");
+      window.youtubeLoaded = true;
     });
 
 gapi.load("client", start);
@@ -27,6 +28,11 @@ export default {
   name: "App",
   components: {
     ByCodersNavBar,
+  },
+  mounted() {
+    setTimeout(() => {
+      this.$store.dispatch("topVideos");
+    }, 3000);
   },
 };
 </script>

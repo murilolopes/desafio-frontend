@@ -1,8 +1,9 @@
 class YoutubeVideo {
   searchVideos(q) {
     const request = window.gapi.client.youtube.search.list({
-      q: q,
+      q,
       part: "snippet",
+      maxResults: 20,
     });
 
     return new Promise((resolve, reject) => {
@@ -22,6 +23,7 @@ class YoutubeVideo {
       part: "snippet, contentDetails, statistics",
       chart: "mostPopular",
       regionCode: "BR",
+      maxResults: 4,
     });
 
     return new Promise((resolve, reject) => {

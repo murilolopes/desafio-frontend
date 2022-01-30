@@ -18,8 +18,6 @@
 </template>
 
 <script>
-import YoutubeVideo from "@/services/youtube-video.js";
-
 export default {
   name: "NavBar",
   data() {
@@ -29,12 +27,7 @@ export default {
   },
   methods: {
     async searchVideos() {
-      try {
-        const reponse = await new YoutubeVideo.searchVideos(this.search);
-        console.log("response:", reponse);
-      } catch (error) {
-        console.log(error);
-      }
+      this.$store.dispatch("searchVideos", this.search);
     },
   },
 };
