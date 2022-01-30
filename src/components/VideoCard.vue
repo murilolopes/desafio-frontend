@@ -6,21 +6,7 @@
     align="left"
     footer-bg-variant="white"
   >
-    <b-card-text>
-      {{ channelName }}<br />
-      <!-- <small class="text-muted">
-        Tags:
-        {{ formatedTags }}
-      </small> -->
-    </b-card-text>
-
-    <!-- <template #footer>
-      <div class="d-flex justify-content-between">
-        <div>Views: {{ viewCounter }}</div>
-        <div>Likes: {{ likeCounter }}</div>
-        <div>Comments: {{ commentCounter }}</div>
-      </div>
-    </template> -->
+    <b-card-text> {{ channelName }}<br /> </b-card-text>
   </b-card>
 </template>
 
@@ -36,21 +22,6 @@ export default {
       type: String,
       default: "",
     },
-    // tags: {
-    //   type: Array,
-    // },
-    // viewCounter: {
-    //   type: String,
-    //   default: "",
-    // },
-    // likeCounter: {
-    //   type: String,
-    //   default: "",
-    // },
-    // commentCounter: {
-    //   type: String,
-    //   default: "",
-    // },
     thumb: {
       type: String,
       default: "",
