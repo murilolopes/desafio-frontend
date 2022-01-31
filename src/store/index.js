@@ -1,3 +1,4 @@
+/* eslint-disable no-empty-pattern */
 import Vue from "vue";
 import Vuex from "vuex";
 import YoutubeVideo from "@/services/youtube-video.js";
@@ -25,6 +26,7 @@ export default new Vuex.Store({
     async searchVideos({ commit }, payload) {
       try {
         const reponse = await new YoutubeVideo.searchVideos(payload);
+        this.dispatch("saveQuery", payload);
         commit("SET_VIDEOS", reponse.items, { root: true });
       } catch (error) {
         console.log(error);
@@ -48,6 +50,20 @@ export default new Vuex.Store({
           { videoCategoryId, items: reponse.items },
           { root: true }
         );
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    saveQuery({}, payload) {
+      try {
+        let currentHistory =
+          JSON.parse(sessionStorage.getItem("searchHistory")) || [];
+        currentHistory.push({
+          term: payload,
+          timestamp: new Date().getTime(),
+        });
+
+        sessionStorage.setItem("searchHistory", JSON.stringify(currentHistory));
       } catch (error) {
         console.log(error);
       }
