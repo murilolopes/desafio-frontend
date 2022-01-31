@@ -7,6 +7,7 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
+    searchHistory: JSON.parse(sessionStorage.getItem("searchHistory")) || [],
     filteredVideos: [],
     featuredVideos: [],
     featuredVideosByCategory: [],
@@ -20,6 +21,9 @@ export default new Vuex.Store({
     },
     SET_FEATURED_VIDEOS_BY_CATEGORY(state, payload) {
       state.featuredVideosByCategory.push(payload);
+    },
+    SET_SEARCH_HISTORY(state, payload) {
+      state.searchHistory = payload;
     },
   },
   actions: {
@@ -54,7 +58,7 @@ export default new Vuex.Store({
         console.log(error);
       }
     },
-    saveQuery({}, payload) {
+    saveQuery({ commit }, payload) {
       try {
         let currentHistory =
           JSON.parse(sessionStorage.getItem("searchHistory")) || [];
@@ -63,6 +67,7 @@ export default new Vuex.Store({
           timestamp: new Date().getTime(),
         });
 
+        commit("SET_SEARCH_HISTORY", currentHistory);
         sessionStorage.setItem("searchHistory", JSON.stringify(currentHistory));
       } catch (error) {
         console.log(error);
@@ -132,6 +137,21 @@ export default new Vuex.Store({
       });
 
       return videosByCategory;
+    },
+    formatedSearchHistory(state) {
+      let history = [];
+
+      state.searchHistory.filter((item) => {
+        history.push({
+          term: item.term,
+          timestamp: item.timestamp,
+          formated_timestamp: new Date(item.timestamp).toLocaleString(),
+        });
+      });
+
+      return history.sort((a, b) => {
+        return b.timestamp - a.timestamp;
+      });
     },
   },
 });
