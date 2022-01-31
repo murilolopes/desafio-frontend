@@ -27,12 +27,5 @@ export default {
       default: "",
     },
   },
-  computed: {
-    formatedTags() {
-      if (!this.tags.length) return "";
-
-      return this.tags.slice(0, 5).join(", ");
-    },
-  },
 };
 </script>
