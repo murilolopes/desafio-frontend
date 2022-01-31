@@ -1,6 +1,6 @@
 <template>
   <b-container v-if="videos.length">
-    <h4>Popular videos</h4>
+    <h4>Featured videos by category</h4>
     <b-row cols="12">
       <b-col
         cols="3"
@@ -26,13 +26,31 @@
 import VideoCard from "@/components/VideoCard.vue";
 
 export default {
-  name: "PopularVideos",
+  name: "FeaturedVideosByCategory",
+  props: {
+    videoCategoryId: {
+      type: String,
+      required: true,
+    },
+  },
   components: {
     VideoCard,
   },
+  mounted() {
+    setTimeout(() => {
+      this.$store.dispatch("featuredVideosByCategory", this.videoCategoryId);
+    }, 3000);
+  },
   computed: {
     videos() {
-      return this.$store.getters.filteredVideos;
+      let videos = [];
+
+      this.$store.getters.filteredFeaturedVideosByCategory.filter((video) => {
+        if (video.videoCategoryId == this.videoCategoryId)
+          videos.push(...video.items);
+      });
+
+      return videos;
     },
   },
 };

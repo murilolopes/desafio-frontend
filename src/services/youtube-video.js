@@ -37,6 +37,27 @@ class YoutubeVideo {
       );
     });
   }
+
+  topVideosByCategory(videoCategoryId) {
+    const request = window.gapi.client.youtube.videos.list({
+      part: "snippet, contentDetails, statistics",
+      chart: "mostPopular",
+      regionCode: "BR",
+      maxResults: 12,
+      videoCategoryId,
+    });
+
+    return new Promise((resolve, reject) => {
+      request.execute(
+        (response) => {
+          resolve(response);
+        },
+        (error) => {
+          reject(error);
+        }
+      );
+    });
+  }
 }
 
 export default new YoutubeVideo();

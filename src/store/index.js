@@ -8,6 +8,7 @@ export default new Vuex.Store({
   state: {
     filteredVideos: [],
     topVideos: [],
+    featuredVideosByCategory: [],
   },
   mutations: {
     SET_VIDEOS(state, payload) {
@@ -15,6 +16,9 @@ export default new Vuex.Store({
     },
     SET_TOP_VIDEOS(state, payload) {
       state.topVideos = payload;
+    },
+    SET_FEATURED_VIDEOS_BY_CATEGORY(state, payload) {
+      state.featuredVideosByCategory.push(payload);
     },
   },
   actions: {
@@ -30,6 +34,20 @@ export default new Vuex.Store({
       try {
         const reponse = await new YoutubeVideo.topVideos();
         commit("SET_TOP_VIDEOS", reponse.items, { root: true });
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async featuredVideosByCategory({ commit }, videoCategoryId) {
+      try {
+        const reponse = await new YoutubeVideo.topVideosByCategory(
+          videoCategoryId
+        );
+        commit(
+          "SET_FEATURED_VIDEOS_BY_CATEGORY",
+          { videoCategoryId, items: reponse.items },
+          { root: true }
+        );
       } catch (error) {
         console.log(error);
       }
@@ -71,6 +89,33 @@ export default new Vuex.Store({
       });
 
       return videos;
+    },
+    filteredFeaturedVideosByCategory(state) {
+      let videosByCategory = [];
+      state.featuredVideosByCategory.filter((category) => {
+        let videos = [];
+
+        category.items.filter((video) => {
+          const tags = video.snippet.tags?.length ? video.snippet.tags : [];
+          const thumb =
+            video.snippet.thumbnails.maxres?.url ||
+            video.snippet.thumbnails.default.url;
+
+          videos.push({
+            title: video.snippet.title,
+            channelName: video.snippet.channelTitle,
+            tags,
+            thumb,
+          });
+        });
+
+        videosByCategory.push({
+          videoCategoryId: category.videoCategoryId,
+          items: videos,
+        });
+      });
+
+      return videosByCategory;
     },
   },
 });
