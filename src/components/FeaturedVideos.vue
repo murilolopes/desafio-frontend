@@ -50,8 +50,13 @@ export default {
   },
   computed: {
     videos() {
-      return this.$store.getters.filteredTopVideos;
+      return this.$store.getters.filteredFeaturedVideos;
     },
+  },
+  mounted() {
+    setTimeout(() => {
+      this.$store.dispatch("featuredVideos");
+    }, 3000);
   },
 };
 </script>

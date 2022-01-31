@@ -29,11 +29,6 @@ export default {
   components: {
     ByCodersNavBar,
   },
-  mounted() {
-    setTimeout(() => {
-      this.$store.dispatch("topVideos");
-    }, 3000);
-  },
 };
 </script>
 

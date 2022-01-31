@@ -7,15 +7,15 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     filteredVideos: [],
-    topVideos: [],
+    featuredVideos: [],
     featuredVideosByCategory: [],
   },
   mutations: {
     SET_VIDEOS(state, payload) {
       state.filteredVideos = payload;
     },
-    SET_TOP_VIDEOS(state, payload) {
-      state.topVideos = payload;
+    SET_FEATURED_VIDEOS(state, payload) {
+      state.featuredVideos = payload;
     },
     SET_FEATURED_VIDEOS_BY_CATEGORY(state, payload) {
       state.featuredVideosByCategory.push(payload);
@@ -30,17 +30,17 @@ export default new Vuex.Store({
         console.log(error);
       }
     },
-    async topVideos({ commit }) {
+    async featuredVideos({ commit }) {
       try {
-        const reponse = await new YoutubeVideo.topVideos();
-        commit("SET_TOP_VIDEOS", reponse.items, { root: true });
+        const reponse = await new YoutubeVideo.featuredVideos();
+        commit("SET_FEATURED_VIDEOS", reponse.items, { root: true });
       } catch (error) {
         console.log(error);
       }
     },
     async featuredVideosByCategory({ commit }, videoCategoryId) {
       try {
-        const reponse = await new YoutubeVideo.topVideosByCategory(
+        const reponse = await new YoutubeVideo.featuredVideosByCategory(
           videoCategoryId
         );
         commit(
@@ -72,9 +72,9 @@ export default new Vuex.Store({
 
       return videos;
     },
-    filteredTopVideos(state) {
+    filteredFeaturedVideos(state) {
       let videos = [];
-      state.topVideos.filter((video) => {
+      state.featuredVideos.filter((video) => {
         const tags = video.snippet.tags?.length ? video.snippet.tags : [];
         const thumb =
           video.snippet.thumbnails.maxres?.url ||

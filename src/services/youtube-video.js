@@ -18,7 +18,7 @@ class YoutubeVideo {
     });
   }
 
-  topVideos() {
+  featuredVideos() {
     const request = window.gapi.client.youtube.videos.list({
       part: "snippet, contentDetails, statistics",
       chart: "mostPopular",
@@ -38,7 +38,7 @@ class YoutubeVideo {
     });
   }
 
-  topVideosByCategory(videoCategoryId) {
+  featuredVideosByCategory(videoCategoryId) {
     const request = window.gapi.client.youtube.videos.list({
       part: "snippet, contentDetails, statistics",
       chart: "mostPopular",

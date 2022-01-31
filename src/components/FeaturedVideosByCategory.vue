@@ -1,5 +1,5 @@
 <template>
-  <b-container v-if="videos.length">
+  <b-container fluid v-if="videos.length">
     <h4>Featured videos by category</h4>
     <b-row cols="12">
       <b-col
