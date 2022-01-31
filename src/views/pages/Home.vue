@@ -8,7 +8,7 @@
 
 <script>
 import FeaturedVideos from "@/components/FeaturedVideos.vue";
-import FeaturedVideosByCategory from "../components/FeaturedVideosByCategory.vue";
+import FeaturedVideosByCategory from "../../components/FeaturedVideosByCategory.vue";
 
 export default {
   components: { FeaturedVideos, FeaturedVideosByCategory },

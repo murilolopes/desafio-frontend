@@ -1,6 +1,6 @@
 <template>
   <b-navbar toggleable type="dark" variant="dark">
-    <b-navbar-brand href="#">NavBar</b-navbar-brand>
+    <b-navbar-brand to="/">NavBar</b-navbar-brand>
 
     <b-nav-form>
       <b-form-input class="mr-sm-2" placeholder="Search" v-model="search" />
@@ -27,7 +27,14 @@ export default {
   },
   methods: {
     async searchVideos() {
-      this.$store.dispatch("searchVideos", this.search);
+      this.$store
+        .dispatch("searchVideos", this.search)
+        .then(() => {
+          this.$router.push({ name: "Videos" });
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
   },
 };
