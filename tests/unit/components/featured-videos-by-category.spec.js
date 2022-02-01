@@ -133,4 +133,80 @@ describe("FeaturedVideosByCategory.vue", () => {
       expect(wrapper.props().thumb).toBe(category2.items[i].thumb);
     });
   });
+
+  test("should dispatch featuredVideosByCategory action with videoCategory params after 3 seconds", () => {
+    const store = new Vuex.Store({
+      actions: {
+        featuredVideosByCategory: () => {},
+      },
+      getters: {
+        filteredFeaturedVideosByCategory: () => [],
+      },
+    });
+
+    store.dispatch = jest.fn();
+
+    mount(FeaturedVideosByCategory, {
+      store,
+      localVue,
+      propsData: {
+        videoCategoryId: "1",
+      },
+    });
+
+    jest.runTimersToTime(3000);
+
+    expect(store.dispatch).toHaveBeenCalledWith(
+      "featuredVideosByCategory",
+      "1"
+    );
+  });
+
+  test("computed videos should return and treat filteredFeaturedVideosByCategory from store", () => {
+    const category1 = {
+      videoCategoryId: "1",
+      items: [
+        {
+          title: "title1",
+          channelName: "channelName1",
+          thumb: "thumb1",
+        },
+      ],
+    };
+
+    const category2 = {
+      videoCategoryId: "2",
+      items: [
+        {
+          title: "title2",
+          channelName: "channelName2",
+          thumb: "thumb2",
+        },
+        {
+          title: "title3",
+          channelName: "channelName3",
+          thumb: "thumb3",
+        },
+      ],
+    };
+
+    const store = new Vuex.Store({
+      getters: {
+        filteredFeaturedVideosByCategory: () => [category1, category2],
+      },
+    });
+
+    store.dispatch = jest.fn();
+
+    const wrapper = mount(FeaturedVideosByCategory, {
+      store,
+      localVue,
+      propsData: {
+        videoCategoryId: "1",
+      },
+    });
+
+    expect(wrapper.vm.videos.length).toEqual(1);
+    expect(wrapper.vm.videos[0]).toBe(category1.items[0]);
+  });
 });

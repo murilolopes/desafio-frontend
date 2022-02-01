@@ -62,6 +62,9 @@ describe("FeaturedVideos.vue", () => {
     ];
 
     const store = new Vuex.Store({
+      actions: {
+        featuredVideos: () => {},
+      },
       getters: {
         filteredFeaturedVideos: () => videos,
       },
@@ -102,6 +105,9 @@ describe("FeaturedVideos.vue", () => {
     ];
 
     const store = new Vuex.Store({
+      actions: {
+        featuredVideos: () => {},
+      },
       getters: {
         filteredFeaturedVideos: () => videos,
       },
@@ -119,6 +125,71 @@ describe("FeaturedVideos.vue", () => {
       expect(wrapper.props().title).toBe(videos[i].title);
       expect(wrapper.props().channelName).toBe(videos[i].channelName);
       expect(wrapper.props().thumb).toBe(videos[i].thumb);
+    });
+  });
+
+  test("should dispatch featuredVideos action after 3 seconds", () => {
+    const store = new Vuex.Store({
+      actions: {
+        featuredVideos: () => {},
+      },
+      getters: {
+        filteredFeaturedVideos: () => [],
+      },
+    });
+
+    store.dispatch = jest.fn();
+
+    mount(FeaturedVideos, {
+      store,
+      localVue,
+    });
+
+    jest.runTimersToTime(3000);
+
+    expect(store.dispatch).toHaveBeenCalledWith("featuredVideos");
+  });
+
+  test("computed videos should return and four treat filteredFeaturedVideos from store", () => {
+    const videos = [
+      {
+        title: "title1",
+        channelName: "channelName1",
+        thumb: "thumb1",
+      },
+      {
+        title: "title2",
+        channelName: "channelName2",
+        thumb: "thumb2",
+      },
+      {
+        title: "title3",
+        channelName: "channelName3",
+        thumb: "thumb3",
+      },
+      {
+        title: "title4",
+        channelName: "channelName4",
+        thumb: "thumb4",
+      },
+    ];
+
+    const store = new Vuex.Store({
+      getters: {
+        filteredFeaturedVideos: () => videos,
+      },
+    });
+
+    const wrapper = mount(FeaturedVideos, {
+      store,
+      localVue,
+    });
+
+    expect(wrapper.vm.videos).toHaveLength(4);
+    wrapper.vm.videos.forEach((video, i) => {
+      expect(video.title).toBe(videos[i].title);
+      expect(video.channelName).toBe(videos[i].channelName);
+      expect(video.thumb).toBe(videos[i].thumb);
     });
   });
 });
