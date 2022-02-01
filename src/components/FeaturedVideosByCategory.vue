@@ -11,10 +11,6 @@
         <video-card
           :title="video.title"
           :channelName="video.channelName"
-          :tags="video.tags"
-          :viewCounter="video.viewCounter"
-          :likeCounter="video.likeCounter"
-          :commentCounter="video.commentCounter"
           :thumb="video.thumb"
         />
       </b-col>
