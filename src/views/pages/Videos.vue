@@ -19,7 +19,6 @@ import VideoCard from "../../components/VideoCard.vue";
 export default {
   name: "Videos",
   components: { VideoCard },
-  mounted() {},
   computed: {
     videos() {
       return this.$store.getters.filteredVideos;
