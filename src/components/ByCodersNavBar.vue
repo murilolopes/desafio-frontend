@@ -24,6 +24,7 @@ export default {
   data() {
     return {
       search: "",
+      errors: null,
     };
   },
   methods: {
@@ -34,7 +35,7 @@ export default {
           this.$router.push({ name: "Videos" });
         })
         .catch((err) => {
-          console.log(err);
+          this.errors = err;
         });
     },
   },

@@ -1,6 +1,7 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import BootstrapVue from "bootstrap-vue";
+import flushPromises from "flush-promises";
 
 import { mount, createLocalVue } from "@vue/test-utils";
 import ByCodersNavBar from "./../../../src/components/ByCodersNavBar.vue";
@@ -45,7 +46,7 @@ describe("ByCodersNavBar.vue", () => {
     expect(wrapper.vm.searchVideos).toHaveBeenCalled();
   });
 
-  test("searchVideos method should dispatch searchVideos action with search value and retur success", () => {
+  test("searchVideos method should dispatch searchVideos action with search value and return success", () => {
     let store = new Vuex.Store({
       actions: { searchVideos: jest.fn() },
     });
@@ -67,5 +68,30 @@ describe("ByCodersNavBar.vue", () => {
     expect(store.dispatch).toHaveBeenCalledWith("searchVideos", "test");
     // TODO: check if router is called
     // expect(wrapper.vm.$router.push).toHaveBeenCalledWith({ name: "Videos" });
+  });
+
+  test("searchVideos method should set errors value when action return error", async () => {
+    let store = new Vuex.Store({
+      actions: { searchVideos: jest.fn() },
+    });
+    store.dispatch = jest.fn().mockRejectedValue("Error value");
+
+    const wrapper = mount(ByCodersNavBar, {
+      store,
+      localVue,
+      data() {
+        return { search: "test", errors: null };
+      },
+      mocks: {
+        $router: { push: jest.fn() },
+      },
+    });
+
+    wrapper.find("#navBarSearchButton").trigger("click");
+
+    await flushPromises();
+
+    expect(store.dispatch).toHaveBeenCalledWith("searchVideos", "test");
+    expect(wrapper.vm.errors).toBe("Error value");
   });
 });
