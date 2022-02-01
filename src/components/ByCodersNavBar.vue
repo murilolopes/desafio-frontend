@@ -5,6 +5,7 @@
     <b-nav-form>
       <b-form-input class="mr-sm-2" placeholder="Search" v-model="search" />
       <b-button
+        id="navBarSearchButton"
         variant="outline-success"
         class="my-2 my-sm-0"
         type="submit"
@@ -26,7 +27,7 @@ export default {
     };
   },
   methods: {
-    async searchVideos() {
+    searchVideos() {
       this.$store
         .dispatch("searchVideos", this.search)
         .then(() => {
