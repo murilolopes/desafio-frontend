@@ -123,4 +123,22 @@ describe("Vuex actions", () => {
       expect(mutations.SET_ERRORS).toHaveBeenCalledWith(store.state, "error");
     }
   });
+
+  test("saveQuery should call SET_SEARCH_HISTORY mutation and add payload to searchHistory array in sessionStorage", async () => {
+    mutations.SET_SEARCH_HISTORY = jest.fn();
+
+    let store = new Vuex.Store({
+      actions,
+      mutations,
+    });
+
+    const currentHistory = await store.dispatch("saveQuery", "Me contrata");
+
+    expect(mutations.SET_SEARCH_HISTORY).toHaveBeenCalledWith(
+      {},
+      currentHistory
+    );
+
+    //TODO understand how to test session storage and how to test something that I mocked
+  });
 });

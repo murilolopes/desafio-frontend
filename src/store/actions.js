@@ -49,6 +49,7 @@ export default {
     try {
       let currentHistory =
         JSON.parse(sessionStorage.getItem("searchHistory")) || [];
+
       currentHistory.push({
         term: payload,
         timestamp: new Date().getTime(),
@@ -56,6 +57,8 @@ export default {
 
       commit("SET_SEARCH_HISTORY", currentHistory);
       sessionStorage.setItem("searchHistory", JSON.stringify(currentHistory));
+
+      return currentHistory;
     } catch (error) {
       console.log(error);
     }
