@@ -16,12 +16,17 @@ export default {
     });
   },
   async featuredVideos({ commit }) {
-    try {
-      const reponse = await new YoutubeVideo.featuredVideos();
-      commit("SET_FEATURED_VIDEOS", reponse.items, { root: true });
-    } catch (error) {
-      console.log(error);
-    }
+    return new Promise((resolve, reject) => {
+      YoutubeVideo.featuredVideos()
+        .then((response) => {
+          commit("SET_FEATURED_VIDEOS", response.items, { root: true });
+          resolve(response);
+        })
+        .catch((error) => {
+          commit("SET_ERRORS", error);
+          reject(error);
+        });
+    });
   },
   async featuredVideosByCategory({ commit }, videoCategoryId) {
     try {

@@ -46,4 +46,41 @@ describe("Vuex actions", () => {
       expect(mutations.SET_ERRORS).toHaveBeenCalledWith(store.state, "error");
     }
   });
+
+  test("featuredVideos should call featuredVideos on YoutubeVideo service and commit SET_FEATURED_VIDEOS mutation on success", async () => {
+    YoutubeVideo.featuredVideos = jest
+      .fn()
+      .mockResolvedValueOnce({ items: [] });
+
+    jest.spyOn(mutations, "SET_FEATURED_VIDEOS");
+
+    let store = new Vuex.Store({
+      actions,
+      mutations,
+    });
+
+    const response = await store.dispatch("featuredVideos");
+
+    expect(mutations.SET_FEATURED_VIDEOS).toHaveBeenCalledWith(
+      store.state,
+      response.items
+    );
+  });
+
+  test("featuredVideos should commit SET_ERRORS mutation on fail", async () => {
+    YoutubeVideo.searchVideos = jest.fn().mockRejectedValueOnce("error");
+
+    jest.spyOn(mutations, "SET_ERRORS");
+
+    let store = new Vuex.Store({
+      actions,
+      mutations,
+    });
+
+    try {
+      await store.dispatch("searchVideos", "teste");
+    } catch (error) {
+      expect(mutations.SET_ERRORS).toHaveBeenCalledWith(store.state, "error");
+    }
+  });
 });
