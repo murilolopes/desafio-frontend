@@ -29,18 +29,21 @@ export default {
     });
   },
   async featuredVideosByCategory({ commit }, videoCategoryId) {
-    try {
-      const reponse = await new YoutubeVideo.featuredVideosByCategory(
-        videoCategoryId
-      );
-      commit(
-        "SET_FEATURED_VIDEOS_BY_CATEGORY",
-        { videoCategoryId, items: reponse.items },
-        { root: true }
-      );
-    } catch (error) {
-      console.log(error);
-    }
+    return new Promise((resolve, reject) => {
+      YoutubeVideo.featuredVideosByCategory(videoCategoryId)
+        .then((response) => {
+          commit(
+            "SET_FEATURED_VIDEOS_BY_CATEGORY",
+            { videoCategoryId, items: response.items },
+            { root: true }
+          );
+          resolve(response);
+        })
+        .catch((error) => {
+          commit("SET_ERRORS", error);
+          reject(error);
+        });
+    });
   },
   saveQuery({ commit }, payload) {
     try {

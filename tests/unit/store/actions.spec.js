@@ -83,4 +83,44 @@ describe("Vuex actions", () => {
       expect(mutations.SET_ERRORS).toHaveBeenCalledWith(store.state, "error");
     }
   });
+
+  test("featuredVideosByCategory should call featuredVideosByCategory on YoutubeVideo service and commit SET_FEATURED_VIDEOS_BY_CATEGORY mutation with params on success", async () => {
+    YoutubeVideo.featuredVideosByCategory = jest
+      .fn()
+      .mockResolvedValueOnce({ items: [] });
+
+    jest.spyOn(mutations, "SET_FEATURED_VIDEOS_BY_CATEGORY");
+
+    let store = new Vuex.Store({
+      state: { featuredVideosByCategory: [] },
+      actions,
+      mutations,
+    });
+
+    const response = await store.dispatch("featuredVideosByCategory", "10");
+
+    expect(mutations.SET_FEATURED_VIDEOS_BY_CATEGORY).toHaveBeenCalledWith(
+      store.state,
+      { videoCategoryId: "10", items: response.items }
+    );
+  });
+
+  test("featuredVideosByCategory should commit SET_ERRORS mutation on fail", async () => {
+    YoutubeVideo.featuredVideosByCategory = jest
+      .fn()
+      .mockRejectedValueOnce("error");
+
+    jest.spyOn(mutations, "SET_ERRORS");
+
+    let store = new Vuex.Store({
+      actions,
+      mutations,
+    });
+
+    try {
+      await store.dispatch("featuredVideosByCategory", "10");
+    } catch (error) {
+      expect(mutations.SET_ERRORS).toHaveBeenCalledWith(store.state, "error");
+    }
+  });
 });
