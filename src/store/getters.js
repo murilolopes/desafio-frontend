@@ -69,7 +69,7 @@ export default {
       history.push({
         term: item.term,
         timestamp: item.timestamp,
-        formated_timestamp: new Date(item.timestamp).toLocaleString(),
+        formated_timestamp: new Date(item.timestamp).toLocaleString("pt-BR"),
       });
     });
 
