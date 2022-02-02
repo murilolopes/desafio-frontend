@@ -33,6 +33,24 @@ describe("ByCodersNavBar.vue", () => {
     expect(button.attributes().disabled).toBe(undefined);
   });
 
+  test("should show login button with doesnt have a logger user", () => {
+    const store = new Vuex.Store({});
+    const wrapper = mount(ByCodersNavBar, { store, localVue });
+    const button = wrapper.find("#signInButton");
+
+    expect(button.exists()).toBeTruthy();
+  });
+
+  test("should show logout button with have a logger user", () => {
+    const store = new Vuex.Store({
+      getters: { isLoggedIn: () => true },
+    });
+    const wrapper = mount(ByCodersNavBar, { store, localVue });
+    const button = wrapper.find("#signOutButton");
+
+    expect(button.exists()).toBeTruthy();
+  });
+
   test("should call searchVideos when click in button", () => {
     const store = new Vuex.Store({});
     const wrapper = mount(ByCodersNavBar, {

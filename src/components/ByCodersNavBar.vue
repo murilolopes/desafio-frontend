@@ -18,6 +18,7 @@
     <b-nav-form>
       <div class="g-signin2" data-onsuccess="onSignIn">
         <b-button
+          id="signInButton"
           class="my-2 my-sm-0"
           @click="login"
           v-if="!$store.getters.isLoggedIn"
@@ -25,6 +26,7 @@
           Login
         </b-button>
         <b-button
+          id="signOutButton"
           class="my-2 my-sm-0"
           @click="logout"
           v-if="$store.getters.isLoggedIn"
