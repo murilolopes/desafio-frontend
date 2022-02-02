@@ -15,10 +15,18 @@
         Search
       </b-button>
     </b-nav-form>
+    <b-nav-form>
+      <div class="g-signin2" data-onsuccess="onSignIn">
+        <b-button class="my-2 my-sm-0" @click="login"> Login </b-button>
+        <b-button class="my-2 my-sm-0"> Logout </b-button>
+      </div>
+    </b-nav-form>
   </b-navbar>
 </template>
 
 <script>
+/* eslint-disable no-undef */
+
 export default {
   name: "NavBar",
   data() {
@@ -37,6 +45,13 @@ export default {
         .catch((err) => {
           this.errors = err;
         });
+    },
+    async login() {
+      try {
+        await this.$store.dispatch("login", gapi);
+      } catch (error) {
+        console.log(error);
+      }
     },
   },
 };

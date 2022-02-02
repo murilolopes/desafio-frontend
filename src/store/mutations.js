@@ -11,6 +11,13 @@ export default {
   SET_SEARCH_HISTORY(state, payload) {
     state.searchHistory = payload;
   },
+  SET_USER(state, payload) {
+    state.user = {
+      fullName: payload.sf,
+      email: payload.yv,
+      avatar: payload.zN,
+    };
+  },
   SET_ERRORS(state, payload) {
     state.errors = payload;
   },

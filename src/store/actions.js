@@ -59,4 +59,19 @@ export default {
 
     return currentHistory;
   },
+  async login({ commit }, gapi) {
+    return new Promise((resolve, reject) => {
+      gapi.auth2
+        .getAuthInstance()
+        .signIn()
+        .then((response) => {
+          commit("SET_USER", response.getBasicProfile());
+          resolve(response);
+        })
+        .catch((error) => {
+          commit("SET_ERRORS", error);
+          reject(error);
+        });
+    });
+  },
 };

@@ -4,4 +4,5 @@ export default {
   featuredVideos: [],
   featuredVideosByCategory: [],
   errors: null,
+  user: {},
 };
