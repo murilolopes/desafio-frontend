@@ -24,7 +24,11 @@
         >
           Login
         </b-button>
-        <b-button class="my-2 my-sm-0" v-if="$store.getters.isLoggedIn">
+        <b-button
+          class="my-2 my-sm-0"
+          @click="logout"
+          v-if="$store.getters.isLoggedIn"
+        >
           Logout
         </b-button>
       </div>
@@ -56,7 +60,14 @@ export default {
     },
     async login() {
       try {
-        await this.$store.dispatch("login", gapi);
+        await this.$store.dispatch("login");
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async logout() {
+      try {
+        await this.$store.dispatch("logout");
       } catch (error) {
         console.log(error);
       }

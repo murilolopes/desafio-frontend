@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import YoutubeVideo from "@/services/youtube-video.js";
 
 export default {
@@ -59,13 +60,28 @@ export default {
 
     return currentHistory;
   },
-  async login({ commit }, gapi) {
+  async login({ commit }) {
     return new Promise((resolve, reject) => {
       gapi.auth2
         .getAuthInstance()
         .signIn()
         .then((response) => {
           commit("SET_USER", response.getBasicProfile());
+          resolve(response);
+        })
+        .catch((error) => {
+          commit("SET_ERRORS", error);
+          reject(error);
+        });
+    });
+  },
+  async logout({ commit }) {
+    return new Promise((resolve, reject) => {
+      gapi.auth2
+        .getAuthInstance()
+        .signOut()
+        .then((response) => {
+          commit("SET_USER", {});
           resolve(response);
         })
         .catch((error) => {
