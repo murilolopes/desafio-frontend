@@ -71,4 +71,7 @@ export default {
       return b.timestamp - a.timestamp;
     });
   },
+  isLoggedIn(state) {
+    return !!state.user.email;
+  },
 };
