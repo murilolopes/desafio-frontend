@@ -12,14 +12,18 @@ localVue.use(Vuex);
 
 describe("ByCodersNavBar.vue", () => {
   test("buttons should be disabled by default", () => {
-    const wrapper = mount(ByCodersNavBar);
+    const store = new Vuex.Store({});
+    const wrapper = mount(ByCodersNavBar, { store, localVue });
     const button = wrapper.find("#navBarSearchButton");
 
     expect(button.attributes().disabled).toBe("disabled");
   });
 
   test("buttons should not to be disabled when has a search value", () => {
+    const store = new Vuex.Store({});
     const wrapper = mount(ByCodersNavBar, {
+      store,
+      localVue,
       data: () => {
         return { search: "test" };
       },
