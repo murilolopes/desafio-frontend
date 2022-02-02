@@ -46,6 +46,48 @@ describe("Vuex mutation", () => {
     );
   });
 
+  test("filteredFeaturedVideos should return a formated video array", () => {
+    const state = {
+      featuredVideos: [
+        {
+          snippet: {
+            title: "title",
+            channelTitle: "channelTitle",
+            thumbnails: {
+              default: { url: "https://example.com/default.jpg" },
+              maxres: { url: "https://example.com/default.jpg" },
+            },
+          },
+        },
+        {
+          snippet: {
+            title: "title1",
+            channelTitle: "channelTitle1",
+            thumbnails: {
+              default: { url: "https://example.com/default.jpg" },
+            },
+          },
+        },
+      ],
+    };
+
+    const filteredFeaturedVideos = getters.filteredFeaturedVideos(state);
+
+    expect(filteredFeaturedVideos).toHaveLength(state.featuredVideos.length);
+    expect(filteredFeaturedVideos[0].title).toBe(
+      state.featuredVideos[0].snippet.title
+    );
+    expect(filteredFeaturedVideos[0].channelName).toBe(
+      state.featuredVideos[0].snippet.channelTitle
+    );
+    expect(filteredFeaturedVideos[0].thumb).toBe(
+      state.featuredVideos[0].snippet.thumbnails.maxres.url
+    );
+    expect(filteredFeaturedVideos[1].thumb).toBe(
+      state.featuredVideos[1].snippet.thumbnails.default.url
+    );
+  });
+
   test("formatedSearchHistory should return a formated and sorted serachHistory data", () => {
     const state = {
       searchHistory: [
