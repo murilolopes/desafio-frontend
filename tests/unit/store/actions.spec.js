@@ -3,7 +3,6 @@ import { createLocalVue } from "@vue/test-utils";
 import YoutubeVideo from "@/services/youtube-video";
 import actions from "@/store/actions";
 import mutations from "@/store/mutations";
-import flushPromises from "flush-promises";
 
 const localVue = createLocalVue();
 localVue.use(Vuex);
@@ -21,8 +20,6 @@ describe("Vuex actions", () => {
 
     const response = await store.dispatch("searchVideos", "teste");
 
-    flushPromises();
-
     expect(YoutubeVideo.searchVideos).toHaveBeenCalledWith("teste");
     expect(mutations.SET_VIDEOS).toHaveBeenCalledWith(
       store.state,
@@ -31,5 +28,22 @@ describe("Vuex actions", () => {
 
     // TODO try to understand why this test fails
     // expect(actions.saveQuery).toHaveBeenCalledWith("teste");
+  });
+
+  test("searchVideos should commit SET_ERRORS mutation on fail", async () => {
+    YoutubeVideo.searchVideos = jest.fn().mockRejectedValueOnce("error");
+
+    jest.spyOn(mutations, "SET_ERRORS");
+
+    let store = new Vuex.Store({
+      actions,
+      mutations,
+    });
+
+    try {
+      await store.dispatch("searchVideos", "teste");
+    } catch (error) {
+      expect(mutations.SET_ERRORS).toHaveBeenCalledWith(store.state, "error");
+    }
   });
 });

@@ -3,17 +3,16 @@ import YoutubeVideo from "@/services/youtube-video.js";
 export default {
   async searchVideos({ commit, dispatch }, payload) {
     return new Promise((resolve, reject) => {
-      YoutubeVideo.searchVideos(payload).then(
-        (response) => {
+      YoutubeVideo.searchVideos(payload)
+        .then((response) => {
           commit("SET_VIDEOS", response.items, { root: true });
           dispatch("saveQuery", payload);
           resolve(response);
-        },
-        (error) => {
-          // commit("SET_ERRORS", error, { root: true });
+        })
+        .catch((error) => {
+          commit("SET_ERRORS", error);
           reject(error);
-        }
-      );
+        });
     });
   },
   async featuredVideos({ commit }) {
