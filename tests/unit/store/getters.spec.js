@@ -88,6 +88,70 @@ describe("Vuex mutation", () => {
     );
   });
 
+  test("filteredFeaturedVideosByCategory should return a formated video array", () => {
+    const state = {
+      featuredVideosByCategory: [
+        {
+          videoCategoryId: "1",
+          items: [
+            {
+              snippet: {
+                title: "title",
+                channelTitle: "channelTitle",
+                thumbnails: {
+                  default: { url: "https://example.com/default.jpg" },
+                  maxres: { url: "https://example.com/default.jpg" },
+                },
+              },
+            },
+            {
+              snippet: {
+                title: "title1",
+                channelTitle: "channelTitle1",
+                thumbnails: {
+                  default: { url: "https://example.com/default.jpg" },
+                },
+              },
+            },
+          ],
+        },
+        {
+          videoCategoryId: "2",
+          items: [
+            {
+              snippet: {
+                title: "title1",
+                channelTitle: "channelTitle1",
+                thumbnails: {
+                  default: { url: "https://example.com/default.jpg" },
+                },
+              },
+            },
+          ],
+        },
+      ],
+    };
+
+    const filteredFeaturedVideosByCategory =
+      getters.filteredFeaturedVideosByCategory(state);
+
+    expect(filteredFeaturedVideosByCategory).toHaveLength(
+      state.featuredVideosByCategory.length
+    );
+    expect(filteredFeaturedVideosByCategory[0].items[0].title).toBe(
+      state.featuredVideosByCategory[0].items[0].snippet.title
+    );
+    expect(filteredFeaturedVideosByCategory[0].items[0].channelName).toBe(
+      state.featuredVideosByCategory[0].items[0].snippet.channelTitle
+    );
+    expect(filteredFeaturedVideosByCategory[0].items[0].thumb).toBe(
+      state.featuredVideosByCategory[0].items[0].snippet.thumbnails.maxres.url
+    );
+    expect(filteredFeaturedVideosByCategory[1].items[0].thumb).toBe(
+      state.featuredVideosByCategory[1].items[0].snippet.thumbnails.default.url
+    );
+  });
+
   test("formatedSearchHistory should return a formated and sorted serachHistory data", () => {
     const state = {
       searchHistory: [
