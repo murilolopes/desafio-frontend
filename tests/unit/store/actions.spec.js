@@ -124,7 +124,7 @@ describe("Vuex actions", () => {
     }
   });
 
-  test("saveQuery should call SET_SEARCH_HISTORY mutation and add payload to searchHistory array in sessionStorage", async () => {
+  test("saveQuery should call SET_SEARCH_HISTORY mutation and add payload to searchHistory array in sessionStorage on success", async () => {
     mutations.SET_SEARCH_HISTORY = jest.fn();
 
     let store = new Vuex.Store({
