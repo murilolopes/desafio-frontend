@@ -116,4 +116,74 @@ describe("ByCodersNavBar.vue", () => {
     expect(store.dispatch).toHaveBeenCalledWith("searchVideos", "test");
     expect(wrapper.vm.errors).toBe("Error value");
   });
+
+  test("login method should call login action on success", async () => {
+    let store = new Vuex.Store({
+      actions: { login: jest.fn() },
+    });
+    store.dispatch = jest.fn().mockResolvedValue({});
+
+    const wrapper = mount(ByCodersNavBar, {
+      store,
+      localVue,
+    });
+
+    wrapper.find("#signInButton").trigger("click");
+    await flushPromises();
+
+    expect(store.dispatch).toHaveBeenCalledWith("login");
+  });
+
+  test("login method should set error value on failure", async () => {
+    let store = new Vuex.Store({
+      actions: { login: jest.fn() },
+    });
+    store.dispatch = jest.fn().mockRejectedValue("error");
+
+    const wrapper = mount(ByCodersNavBar, {
+      store,
+      localVue,
+    });
+
+    wrapper.find("#signInButton").trigger("click");
+    await flushPromises();
+
+    expect(wrapper.vm.errors).toBe("error");
+  });
+
+  test("logout method should call logout action on success", async () => {
+    let store = new Vuex.Store({
+      actions: { logout: jest.fn() },
+      getters: { isLoggedIn: () => true },
+    });
+    store.dispatch = jest.fn().mockResolvedValue({});
+
+    const wrapper = mount(ByCodersNavBar, {
+      store,
+      localVue,
+    });
+
+    wrapper.find("#signOutButton").trigger("click");
+    await flushPromises();
+
+    expect(store.dispatch).toHaveBeenCalledWith("logout");
+  });
+
+  test("logout method should set error value on failure", async () => {
+    let store = new Vuex.Store({
+      actions: { logout: jest.fn() },
+      getters: { isLoggedIn: () => true },
+    });
+    store.dispatch = jest.fn().mockRejectedValue("error");
+
+    const wrapper = mount(ByCodersNavBar, {
+      store,
+      localVue,
+    });
+
+    wrapper.find("#signOutButton").trigger("click");
+    await flushPromises();
+
+    expect(wrapper.vm.errors).toBe("error");
+  });
 });

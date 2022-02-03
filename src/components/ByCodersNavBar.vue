@@ -64,14 +64,14 @@ export default {
       try {
         await this.$store.dispatch("login");
       } catch (error) {
-        console.log(error);
+        this.errors = error;
       }
     },
     async logout() {
       try {
         await this.$store.dispatch("logout");
       } catch (error) {
-        console.log(error);
+        this.errors = error;
       }
     },
   },
