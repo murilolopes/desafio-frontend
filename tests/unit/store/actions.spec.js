@@ -188,4 +188,47 @@ describe("Vuex actions", () => {
       expect(mutations.SET_ERRORS).toHaveBeenCalledWith({}, error);
     }
   });
+
+  test("logout should call google api signOut method and SET_USER mutation with an empty object on success", async () => {
+    mutations.SET_USER = jest.fn();
+    const getAuthInstance = () => {
+      return {
+        signOut: jest.fn().mockResolvedValueOnce({}),
+      };
+    };
+
+    window.gapi = { auth2: { getAuthInstance } };
+
+    let store = new Vuex.Store({
+      actions,
+      mutations,
+    });
+
+    await store.dispatch("logout");
+    await flushPromises();
+
+    expect(mutations.SET_USER).toHaveBeenCalledWith({}, {});
+  });
+
+  test("logout should call google api signOut method and SET_ERRORS mutation with errors on failure", async () => {
+    mutations.SET_ERRORS = jest.fn();
+    const getAuthInstance = () => {
+      return {
+        signOut: jest.fn().mockRejectedValueOnce("errors"),
+      };
+    };
+
+    window.gapi = { auth2: { getAuthInstance } };
+
+    let store = new Vuex.Store({
+      actions,
+      mutations,
+    });
+
+    try {
+      await store.dispatch("logout");
+    } catch (error) {
+      expect(mutations.SET_ERRORS).toHaveBeenCalledWith({}, error);
+    }
+  });
 });
