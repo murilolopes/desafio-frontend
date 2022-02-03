@@ -17,7 +17,7 @@
 
 ## Desafio 🚀 🚀 🚀
 
-![screen](/image.png)
+![screen](https://raw.githubusercontent.com/ByCodersTec/desafio-frontend/master/image.png)
 
 O desafio consiste em criar um projeto com o design da imagem **acima**, utilizando a [API do YouTube](https://developers.google.com/youtube/v3)
 
