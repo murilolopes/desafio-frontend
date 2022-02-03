@@ -3,6 +3,7 @@ import { createLocalVue } from "@vue/test-utils";
 import YoutubeVideo from "@/services/youtube-video";
 import actions from "@/store/actions";
 import mutations from "@/store/mutations";
+import flushPromises from "flush-promises";
 
 const localVue = createLocalVue();
 localVue.use(Vuex);
@@ -140,5 +141,51 @@ describe("Vuex actions", () => {
     );
 
     //TODO understand how to test session storage and how to test something that I mocked
+  });
+
+  test("login should call google api signin method and SET_USER mutation with user data on success", async () => {
+    mutations.SET_USER = jest.fn();
+    const getAuthInstance = () => {
+      return {
+        signIn: jest.fn().mockResolvedValueOnce({
+          getBasicProfile: jest.fn().mockReturnValueOnce({}),
+        }),
+      };
+    };
+
+    window.gapi = { auth2: { getAuthInstance } };
+
+    let store = new Vuex.Store({
+      actions,
+      mutations,
+    });
+
+    await store.dispatch("login");
+
+    await flushPromises();
+
+    expect(mutations.SET_USER).toHaveBeenCalledWith({}, {});
+  });
+
+  test("login should call google api signin method and SET_ERRORS mutation with errors on failure", async () => {
+    mutations.SET_ERRORS = jest.fn();
+    const getAuthInstance = () => {
+      return {
+        signIn: jest.fn().mockRejectedValueOnce("errors"),
+      };
+    };
+
+    window.gapi = { auth2: { getAuthInstance } };
+
+    let store = new Vuex.Store({
+      actions,
+      mutations,
+    });
+
+    try {
+      await store.dispatch("login");
+    } catch (error) {
+      expect(mutations.SET_ERRORS).toHaveBeenCalledWith({}, error);
+    }
   });
 });
