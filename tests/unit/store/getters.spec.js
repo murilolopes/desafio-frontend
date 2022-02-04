@@ -181,4 +181,26 @@ describe("Vuex mutation", () => {
       "1/1/2022, 5:05:03 AM"
     );
   });
+
+  test("isLoggedIn should return true if user is logged in", () => {
+    const state = {
+      user: {
+        email: "mecontrata@gmail.com",
+      },
+    };
+
+    const isLoggedIn = getters.isLoggedIn(state);
+    expect(isLoggedIn).toBeTruthy();
+  });
+
+  test("isLoggedIn should return false if user is not logged in", () => {
+    const state = {
+      user: {
+        email: "mecontrata@gmail.com",
+      },
+    };
+
+    const isLoggedIn = getters.isLoggedIn(state);
+    expect(isLoggedIn).toBeTruthy();
+  });
 });

@@ -69,7 +69,7 @@ describe("Vuex actions", () => {
   });
 
   test("featuredVideos should commit SET_ERRORS mutation on fail", async () => {
-    YoutubeVideo.searchVideos = jest.fn().mockRejectedValueOnce("error");
+    YoutubeVideo.featuredVideos = jest.fn().mockRejectedValueOnce("error");
 
     jest.spyOn(mutations, "SET_ERRORS");
 
@@ -79,9 +79,9 @@ describe("Vuex actions", () => {
     });
 
     try {
-      await store.dispatch("searchVideos", "teste");
+      await store.dispatch("featuredVideos", "teste");
     } catch (error) {
-      expect(mutations.SET_ERRORS).toHaveBeenCalledWith(store.state, "error");
+      expect(mutations.SET_ERRORS).toHaveBeenCalledWith(store.state, error);
     }
   });
 
