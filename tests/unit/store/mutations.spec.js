@@ -93,4 +93,24 @@ describe("Vuex mutation", () => {
     expect(mutations.SET_ERRORS).toHaveBeenCalledWith(store.state, errors);
     expect(store.state.errors).toHaveLength(errors.length);
   });
+
+  test("SET_USER should update user value on store", () => {
+    jest.spyOn(mutations, "SET_USER");
+    const payload = {
+      sf: "fullName",
+      yv: "email",
+      zN: "avatar",
+    };
+    const store = new Vuex.Store({
+      state,
+      mutations,
+    });
+
+    store.commit("SET_USER", payload);
+
+    expect(mutations.SET_USER).toHaveBeenCalledWith(store.state, payload);
+    expect(store.state.user.fullName).toBe(payload.sf);
+    expect(store.state.user.email).toBe(payload.yv);
+    expect(store.state.user.avatar).toBe(payload.zN);
+  });
 });
