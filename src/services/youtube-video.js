@@ -1,10 +1,7 @@
 class YoutubeVideo {
   searchVideos(q) {
-    const request = window.gapi.client.youtube.search.list({
-      q,
-      part: "snippet",
-      maxResults: 20,
-    });
+    const payload = { q, part: "snippet", maxResults: 20 };
+    const request = window.gapi.client.youtube.search.list(payload);
 
     return new Promise((resolve, reject) => {
       request.execute(
