@@ -6,7 +6,7 @@ export default {
     return new Promise((resolve, reject) => {
       YoutubeVideo.searchVideos(payload)
         .then((response) => {
-          commit("SET_VIDEOS", response.items, { root: true });
+          commit("SET_VIDEOS", response.result.items, { root: true });
           dispatch("saveQuery", payload);
           resolve(response);
         })

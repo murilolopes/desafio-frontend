@@ -3,7 +3,12 @@
     <b-navbar-brand to="/">NavBar</b-navbar-brand>
 
     <b-nav-form>
-      <b-form-input class="mr-sm-2" placeholder="Search" v-model="search" />
+      <b-form-input
+        class="mr-sm-2"
+        placeholder="Search"
+        v-model="search"
+        @keyup.enter="searchVideos()"
+      />
       <b-button
         id="navBarSearchButton"
         variant="outline-success"

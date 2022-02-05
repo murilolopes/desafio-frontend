@@ -10,7 +10,9 @@ localVue.use(Vuex);
 
 describe("Vuex actions", () => {
   test("searchVideos should call searchVideos on YoutubeVideo service and dispatch saveQuery action with params and commit SET_VIDEOS mutation with reponse on success", async () => {
-    YoutubeVideo.searchVideos = jest.fn().mockResolvedValue({ items: [] });
+    YoutubeVideo.searchVideos = jest
+      .fn()
+      .mockResolvedValue({ result: { items: [] } });
     jest.spyOn(actions, "saveQuery");
     jest.spyOn(mutations, "SET_VIDEOS");
 
@@ -24,7 +26,7 @@ describe("Vuex actions", () => {
     expect(YoutubeVideo.searchVideos).toHaveBeenCalledWith("teste");
     expect(mutations.SET_VIDEOS).toHaveBeenCalledWith(
       store.state,
-      response.items
+      response.result.items
     );
 
     // TODO try to understand why this test fails
