@@ -59,13 +59,13 @@ describe("YoutubeVideo service", () => {
     expect(window.gapi.client.youtube.videos.list().execute).toHaveBeenCalled();
   });
 
-  test("featuredVideosByCategory should call gapi.client.youtube.videos.list method and resolve promise", async () => {
+  test("featuredVideosByCategory should call gapi.client.youtube.videos.list method and return success", async () => {
     window.gapi = {
       client: {
         youtube: {
           videos: {
             list: jest.fn().mockReturnValue({
-              execute: jest.fn(),
+              execute: jest.fn().mockResolvedValue("success"),
             }),
           },
         },
@@ -80,7 +80,7 @@ describe("YoutubeVideo service", () => {
       maxResults: 12,
     };
 
-    YoutubeVideo.featuredVideosByCategory(videoCategoryId);
+    const result = YoutubeVideo.featuredVideosByCategory(videoCategoryId);
 
     expect(window.gapi.client.youtube.videos.list).toHaveBeenCalledWith({
       videoCategoryId,
@@ -88,5 +88,28 @@ describe("YoutubeVideo service", () => {
     });
 
     expect(window.gapi.client.youtube.videos.list().execute).toHaveBeenCalled();
+    expect(result).resolves.toBe("success");
+  });
+
+  test("featuredVideosByCategory should call gapi.client.youtube.videos.list method and return failure", async () => {
+    window.gapi = {
+      client: {
+        youtube: {
+          videos: {
+            list: jest.fn().mockReturnValue({
+              execute: jest.fn().mockRejectedValue("failure"),
+            }),
+          },
+        },
+      },
+    };
+
+    const videoCategoryId = "1";
+
+    try {
+      await YoutubeVideo.featuredVideosByCategory(videoCategoryId);
+    } catch (error) {
+      expect(error).toBe("failure");
+    }
   });
 });

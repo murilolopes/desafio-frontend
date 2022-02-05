@@ -44,16 +44,7 @@ class YoutubeVideo {
       videoCategoryId,
     });
 
-    return new Promise((resolve, reject) => {
-      request.execute(
-        (response) => {
-          resolve(response);
-        },
-        (error) => {
-          reject(error);
-        }
-      );
-    });
+    return request.execute();
   }
 }
 
