@@ -4,9 +4,10 @@
     :img-src="thumb"
     img-alt="Image"
     align="left"
-    footer-bg-variant="white"
+    title-tag="h5"
+    class="mb-3"
   >
-    <b-card-text> {{ channelName }}<br /> </b-card-text>
+    <b-card-text> {{ channelName }}</b-card-text>
   </b-card>
 </template>
 

@@ -59,6 +59,11 @@ describe("FeaturedVideos.vue", () => {
         channelName: "channelName4",
         thumb: "thumb4",
       },
+      {
+        title: "title5",
+        channelName: "channelName5",
+        thumb: "thumb5",
+      },
     ];
 
     const store = new Vuex.Store({
@@ -77,10 +82,10 @@ describe("FeaturedVideos.vue", () => {
       localVue,
     });
 
-    expect(wrapper.vm.videos.length).toEqual(4);
+    expect(wrapper.vm.videos.length).toEqual(5);
   });
 
-  test("should render 4 video-card components", () => {
+  test("should render 5 video-card components", () => {
     const videos = [
       {
         title: "title1",
@@ -102,6 +107,11 @@ describe("FeaturedVideos.vue", () => {
         channelName: "channelName4",
         thumb: "thumb4",
       },
+      {
+        title: "title5",
+        channelName: "channelName5",
+        thumb: "thumb5",
+      },
     ];
 
     const store = new Vuex.Store({
@@ -120,7 +130,7 @@ describe("FeaturedVideos.vue", () => {
 
     const cards = wrapper.findAllComponents(VideoCard);
 
-    expect(cards).toHaveLength(4);
+    expect(cards).toHaveLength(5);
     cards.wrappers.forEach((wrapper, i) => {
       expect(wrapper.props().title).toBe(videos[i].title);
       expect(wrapper.props().channelName).toBe(videos[i].channelName);
@@ -172,6 +182,11 @@ describe("FeaturedVideos.vue", () => {
         channelName: "channelName4",
         thumb: "thumb4",
       },
+      {
+        title: "title5",
+        channelName: "channelName5",
+        thumb: "thumb5",
+      },
     ];
 
     const store = new Vuex.Store({
@@ -185,7 +200,7 @@ describe("FeaturedVideos.vue", () => {
       localVue,
     });
 
-    expect(wrapper.vm.videos).toHaveLength(4);
+    expect(wrapper.vm.videos).toHaveLength(5);
     wrapper.vm.videos.forEach((video, i) => {
       expect(video.title).toBe(videos[i].title);
       expect(video.channelName).toBe(videos[i].channelName);

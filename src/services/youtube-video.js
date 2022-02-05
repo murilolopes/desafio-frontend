@@ -11,7 +11,7 @@ class YoutubeVideo {
       part: "snippet, contentDetails, statistics",
       chart: "mostPopular",
       regionCode: "BR",
-      maxResults: 4,
+      maxResults: 5,
     });
 
     return request.getPromise();

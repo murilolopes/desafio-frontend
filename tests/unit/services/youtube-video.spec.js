@@ -69,7 +69,7 @@ describe("YoutubeVideo service", () => {
       part: "snippet, contentDetails, statistics",
       chart: "mostPopular",
       regionCode: "BR",
-      maxResults: 4,
+      maxResults: 5,
     };
 
     const response = YoutubeVideo.featuredVideos();
