@@ -20,7 +20,7 @@ export default {
     return new Promise((resolve, reject) => {
       YoutubeVideo.featuredVideos()
         .then((response) => {
-          commit("SET_FEATURED_VIDEOS", response.items, { root: true });
+          commit("SET_FEATURED_VIDEOS", response.result.items, { root: true });
           resolve(response);
         })
         .catch((error) => {
@@ -35,7 +35,7 @@ export default {
         .then((response) => {
           commit(
             "SET_FEATURED_VIDEOS_BY_CATEGORY",
-            { videoCategoryId, items: response.items },
+            { videoCategoryId, items: response.result.items },
             { root: true }
           );
           resolve(response);
@@ -67,7 +67,7 @@ export default {
         .signIn()
         .then((response) => {
           commit("SET_USER", response.getBasicProfile());
-          resolve(response);
+          resolve(response.result);
         })
         .catch((error) => {
           commit("SET_ERRORS", error);

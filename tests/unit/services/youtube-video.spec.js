@@ -7,7 +7,7 @@ describe("YoutubeVideo service", () => {
         youtube: {
           search: {
             list: jest.fn().mockReturnValue({
-              execute: jest.fn().mockResolvedValue("success"),
+              getPromise: jest.fn().mockResolvedValue("success"),
             }),
           },
         },
@@ -26,7 +26,9 @@ describe("YoutubeVideo service", () => {
       q: query,
       ...payload,
     });
-    expect(window.gapi.client.youtube.search.list().execute).toHaveBeenCalled();
+    expect(
+      window.gapi.client.youtube.search.list().getPromise
+    ).toHaveBeenCalled();
     expect(response).resolves.toBe("success");
   });
 
@@ -36,7 +38,7 @@ describe("YoutubeVideo service", () => {
         youtube: {
           search: {
             list: jest.fn().mockReturnValue({
-              execute: jest.fn().mockRejectedValue("failure"),
+              getPromise: jest.fn().mockRejectedValue("failure"),
             }),
           },
         },
@@ -56,7 +58,7 @@ describe("YoutubeVideo service", () => {
         youtube: {
           videos: {
             list: jest.fn().mockReturnValue({
-              execute: jest.fn().mockResolvedValue("success"),
+              getPromise: jest.fn().mockResolvedValue("success"),
             }),
           },
         },
@@ -75,7 +77,9 @@ describe("YoutubeVideo service", () => {
     expect(window.gapi.client.youtube.videos.list).toHaveBeenCalledWith(
       payload
     );
-    expect(window.gapi.client.youtube.videos.list().execute).toHaveBeenCalled();
+    expect(
+      window.gapi.client.youtube.videos.list().getPromise
+    ).toHaveBeenCalled();
     expect(response).resolves.toBe("success");
   });
 
@@ -85,7 +89,7 @@ describe("YoutubeVideo service", () => {
         youtube: {
           videos: {
             list: jest.fn().mockReturnValue({
-              execute: jest.fn().mockRejectedValue("failure"),
+              getPromise: jest.fn().mockRejectedValue("failure"),
             }),
           },
         },
@@ -105,7 +109,7 @@ describe("YoutubeVideo service", () => {
         youtube: {
           videos: {
             list: jest.fn().mockReturnValue({
-              execute: jest.fn().mockResolvedValue("success"),
+              getPromise: jest.fn().mockResolvedValue("success"),
             }),
           },
         },
@@ -127,7 +131,9 @@ describe("YoutubeVideo service", () => {
       ...payload,
     });
 
-    expect(window.gapi.client.youtube.videos.list().execute).toHaveBeenCalled();
+    expect(
+      window.gapi.client.youtube.videos.list().getPromise
+    ).toHaveBeenCalled();
     expect(result).resolves.toBe("success");
   });
 
@@ -137,7 +143,7 @@ describe("YoutubeVideo service", () => {
         youtube: {
           videos: {
             list: jest.fn().mockReturnValue({
-              execute: jest.fn().mockRejectedValue("failure"),
+              getPromise: jest.fn().mockRejectedValue("failure"),
             }),
           },
         },

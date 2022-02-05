@@ -51,7 +51,7 @@ describe("Vuex actions", () => {
   test("featuredVideos should call featuredVideos on YoutubeVideo service and commit SET_FEATURED_VIDEOS mutation on success", async () => {
     YoutubeVideo.featuredVideos = jest
       .fn()
-      .mockResolvedValueOnce({ items: [] });
+      .mockResolvedValueOnce({ result: { items: [] } });
 
     jest.spyOn(mutations, "SET_FEATURED_VIDEOS");
 
@@ -64,7 +64,7 @@ describe("Vuex actions", () => {
 
     expect(mutations.SET_FEATURED_VIDEOS).toHaveBeenCalledWith(
       store.state,
-      response.items
+      response.result.items
     );
   });
 
@@ -88,7 +88,7 @@ describe("Vuex actions", () => {
   test("featuredVideosByCategory should call featuredVideosByCategory on YoutubeVideo service and commit SET_FEATURED_VIDEOS_BY_CATEGORY mutation with params on success", async () => {
     YoutubeVideo.featuredVideosByCategory = jest
       .fn()
-      .mockResolvedValueOnce({ items: [] });
+      .mockResolvedValueOnce({ result: { items: [] } });
 
     jest.spyOn(mutations, "SET_FEATURED_VIDEOS_BY_CATEGORY");
 
@@ -102,7 +102,7 @@ describe("Vuex actions", () => {
 
     expect(mutations.SET_FEATURED_VIDEOS_BY_CATEGORY).toHaveBeenCalledWith(
       store.state,
-      { videoCategoryId: "10", items: response.items }
+      { videoCategoryId: "10", items: response.result.items }
     );
   });
 
