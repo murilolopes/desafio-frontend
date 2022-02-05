@@ -1,20 +1,23 @@
 <template>
   <b-container fluid v-if="videos.length">
-    <h4>Featured videos by category</h4>
-    <b-row cols="12">
-      <b-col
-        cols="3"
-        class="bg-success"
-        v-for="(video, index) in videos"
-        :key="index"
-      >
-        <video-card
-          :title="video.title"
-          :channelName="video.channelName"
-          :thumb="video.thumb"
-        />
-      </b-col>
-    </b-row>
+    <b-card title="Featured videos by category" class="mb-3">
+      <b-row cols="12">
+        <b-col
+          sm="12"
+          md="4"
+          lg="4"
+          xl="2"
+          v-for="(video, index) in videos"
+          :key="index"
+        >
+          <video-card
+            :title="video.title"
+            :channelName="video.channelName"
+            :thumb="video.thumb"
+          />
+        </b-col>
+      </b-row>
+    </b-card>
   </b-container>
 </template>
 

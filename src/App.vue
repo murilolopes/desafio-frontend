@@ -31,3 +31,13 @@ export default {
   },
 };
 </script>
+
+<style>
+h3,
+h4,
+h5 {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+</style>
