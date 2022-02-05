@@ -58,4 +58,35 @@ describe("YoutubeVideo service", () => {
 
     expect(window.gapi.client.youtube.videos.list().execute).toHaveBeenCalled();
   });
+
+  test("featuredVideosByCategory should call gapi.client.youtube.videos.list method and resolve promise", async () => {
+    window.gapi = {
+      client: {
+        youtube: {
+          videos: {
+            list: jest.fn().mockReturnValue({
+              execute: jest.fn(),
+            }),
+          },
+        },
+      },
+    };
+
+    const videoCategoryId = "1";
+    const payload = {
+      part: "snippet, contentDetails, statistics",
+      chart: "mostPopular",
+      regionCode: "BR",
+      maxResults: 12,
+    };
+
+    YoutubeVideo.featuredVideosByCategory(videoCategoryId);
+
+    expect(window.gapi.client.youtube.videos.list).toHaveBeenCalledWith({
+      videoCategoryId,
+      ...payload,
+    });
+
+    expect(window.gapi.client.youtube.videos.list().execute).toHaveBeenCalled();
+  });
 });
