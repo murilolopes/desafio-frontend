@@ -3,16 +3,7 @@ class YoutubeVideo {
     const payload = { q, part: "snippet", maxResults: 20 };
     const request = window.gapi.client.youtube.search.list(payload);
 
-    return new Promise((resolve, reject) => {
-      request.execute(
-        (response) => {
-          resolve(response);
-        },
-        (error) => {
-          reject(error);
-        }
-      );
-    });
+    return request.execute();
   }
 
   featuredVideos() {
@@ -23,16 +14,7 @@ class YoutubeVideo {
       maxResults: 4,
     });
 
-    return new Promise((resolve, reject) => {
-      request.execute(
-        (response) => {
-          resolve(response);
-        },
-        (error) => {
-          reject(error);
-        }
-      );
-    });
+    return request.execute();
   }
 
   featuredVideosByCategory(videoCategoryId) {
