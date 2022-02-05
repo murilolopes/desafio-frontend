@@ -48,7 +48,7 @@ describe("YoutubeVideo service", () => {
     try {
       YoutubeVideo.searchVideos();
     } catch (error) {
-      expect(error).toBe("failure");
+      expect(error).rejects.toBe("failure");
     }
   });
 
@@ -99,7 +99,7 @@ describe("YoutubeVideo service", () => {
     try {
       YoutubeVideo.featuredVideos();
     } catch (error) {
-      expect(error).toBe("failure");
+      expect(error).rejects.toBe("failure");
     }
   });
 
@@ -153,9 +153,9 @@ describe("YoutubeVideo service", () => {
     const videoCategoryId = "1";
 
     try {
-      await YoutubeVideo.featuredVideosByCategory(videoCategoryId);
+      YoutubeVideo.featuredVideosByCategory(videoCategoryId);
     } catch (error) {
-      expect(error).toBe("failure");
+      expect(error).rejects.toBe("failure");
     }
   });
 });
