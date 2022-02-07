@@ -1,6 +1,6 @@
 <template>
   <b-navbar toggleable type="dark" variant="dark">
-    <b-navbar-brand to="/">NavBar</b-navbar-brand>
+    <b-navbar-brand to="/">ByCoders</b-navbar-brand>
 
     <b-nav-form>
       <b-form-input
